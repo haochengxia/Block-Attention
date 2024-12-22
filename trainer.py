@@ -30,24 +30,66 @@ def _collator(features: List[Dict[str, Any]]) -> Dict[str, Any]:
             f["input_ids"] = F.pad(
                 input=f["input_ids"], pad=[0, pad_length], mode="constant", value=tokenizer.pad_token_id
             )
-            f["labels"] = F.pad(input=f["labels"], pad=[0, pad_length], mode="constant", value=-100)
+            f["labels"] = F.pad(
+                input=f["labels"], pad=[0, pad_length], mode="constant", value=-100
+            )
             f["attention_mask"] = F.pad(
-                input=f["attention_mask"], pad=[0, pad_length, 0, pad_length], mode="constant",
-                value=torch.finfo(f["attention_mask"]).min
+                input=f["attention_mask"], pad=[0, pad_length], mode="constant", value=0.0
             )
     batch = {}
     for k in {"input_ids", "attention_mask", "labels"}:
         tensors = [f[k] for f in features]
-        batch[k] = torch.cat(tensors=tensors, dim=0)
+        batch[k] = torch.stack(tensors, dim=0)
+        if k == "attention_mask":
+            batch[k] = batch[k].to(torch.float32)
+
     return batch
 
 
+# def data_collator(features: List[Dict[str, Any]], return_tensors: Optional[bool] = False) -> Dict[str, Any]:
+#     for k in features[0]:
+#         print(f"{k}: ", features[0][k].size())
+#     if len(features) == 1:
+#         return {k: v.to(torch.float32) if torch.is_tensor(v) else v for k, v in features[0].items()}
+#     return _collator(features=features)
+
+
+# def _collator(features: List[Dict[str, Any]]) -> Dict[str, Any]:
+#     max_length = max([f["input_ids"].size(-1) for f in features])
+#     for f in features:
+#         pad_length = max_length - f["input_ids"].size(-1)
+#         if pad_length != 0:
+#             f["input_ids"] = F.pad(
+#                 input=f["input_ids"], pad=[0, pad_length], mode="constant", value=tokenizer.pad_token_id
+#             )
+#             f["labels"] = F.pad(input=f["labels"], pad=[0, pad_length], mode="constant", value=-100)
+#             f["attention_mask"] = F.pad(
+#                 input=f["attention_mask"], pad=[0, pad_length, 0, pad_length], mode="constant",
+#                 value=torch.finfo(f["attention_mask"]).min
+#             )
+#     batch = {}
+#     for k in {"input_ids", "attention_mask", "labels"}:
+#         tensors = [f[k] for f in features]
+#         batch[k] = torch.cat(tensors=tensors, dim=0)
+#     return batch
+
+
 def data_collator(features: List[Dict[str, Any]], return_tensors: Optional[bool] = False) -> Dict[str, Any]:
-    for k in features[0]:
-        print(f"{k}: ", features[0][k].size())
+
+    features[0]['input_ids'] = features[0]['input_ids'].to(torch.long)
+    features[0]['labels'] = features[0]['labels'].to(torch.long)
+    features[0]['attention_mask'] = features[0]['attention_mask'].to(torch.bfloat16)
+
+    # for k in features[0]:
+        # print(f"{k}: ", features[0][k].size(), features[0][k].dtype)
     if len(features) == 1:
+        # print("[INFO] direct return")
         return features[0]
-    return _collator(features=features)
+    # print("[INFO] not direct return")
+    res = _collator(features=features)
+    # for k in res:
+    #    print(f"[INFO] {k}: ", res[k].size(), res[k].dtype)
+    return res
 
 if __name__ == '__main__':
     parser = HfArgumentParser([TrainingArguments, ModelArgs, DataArgs])
@@ -67,7 +109,7 @@ if __name__ == '__main__':
         use_cache=False,
         torch_dtype=torch.bfloat16,
         attn_implementation="flash_attention_2" if data_args.train_method == "sft" else "sdpa",
-        device_map="auto"
+        # device_map="auto"
     )
 
     with train_args.main_process_first(desc="Load dataset: ", local=True):

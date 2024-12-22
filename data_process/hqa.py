@@ -103,9 +103,11 @@ def tokenizer_instance(ins: SFTDataInstance) -> SFTDataInstance:
 def process_file(input_file: str, output_file: str, num_samples: int):
     with open(input_file, "r", encoding="utf-8") as f:
         hqa_instances: List[Dict[str, Any]] = [json.loads(i) for i in f]
+    
+    hqa_instances = hqa_instances[0]
     if num_samples != -1:
         hqa_instances = random.sample(population=hqa_instances, k=num_samples)
-
+    
     dataset: List[SFTDataInstance] = []
     for i in tqdm(range(0, len(hqa_instances)), desc="Process HQA: ", total=len(hqa_instances)):
         ins = process_instance(ins=hqa_instances[i])
@@ -130,7 +132,7 @@ if __name__ == '__main__':
     os.system(f"mkdir -p {os.path.join(args.output_dir, 'hqa_eval')}")
 
     random.seed(42)
-    model_name = "contriever-msmacro"
+    model_name = "facebook/contriever-msmarco"
     retrieval_tokenizer: PreTrainedTokenizer = AutoTokenizer.from_pretrained(pretrained_model_name_or_path=model_name)
     model: PreTrainedModel = AutoModel.from_pretrained(
         pretrained_model_name_or_path=model_name,
@@ -139,7 +141,7 @@ if __name__ == '__main__':
     )
 
     llama3_tokenizer: PreTrainedTokenizer = AutoTokenizer.from_pretrained(
-        pretrained_model_name_or_path="meta-llama/Meta-Llama-3-8B",
+        pretrained_model_name_or_path="meta-llama/Llama-3.1-8B",
         use_fast=False
     )
     if llama3_tokenizer.chat_template is None:

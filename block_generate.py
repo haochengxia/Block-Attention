@@ -121,7 +121,7 @@ def build_block_past_key_values(
         prompt: str, tokenizer: PreTrainedTokenizer, model: LlamaForCausalLM, emb: LlamaRotaryEmbedding
 ) -> Tuple[List[DynamicCache], torch.Tensor]:
     blocks: List[str] = [
-        "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are an intelligent AI assistant. Please answer questions based on the user's instructions. Below are some reference documents that may help you in answering the user's questions.\n\n"
+        "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are an intelligent AI assistant. Please answer questions based on the user's instructions. Below are some reference documents that may help you in answering the user's question.\n\n"
     ]
     assert prompt.startswith(blocks[0])
     content = prompt[len(blocks[0]):]
@@ -141,9 +141,11 @@ def build_block_past_key_values(
     instruction_ans_response = "<|eot_id|>" + instruction_ans_response
 
     assert instruction_ans_response.startswith(
-        "<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n"
-        "Please write a high-quantify answer for the given question using only the provided search documents"
+        "<|eot_id|><|start_header_id|>user<|end_header_id|>\n\nPlease write a high-quality answer for the given question using only the provided search documents (some of which might be irrelevant)"
+        # "<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n"
+        # "Please write a high-quantify answer for the given question using only the provided search documents"
     )
+    instruction_ans_response += "\nNow you have time to read the documents above carefully and then give me the answer<eot_id>"
     blocks = [b for b in blocks if b != ""]
 
     caches: List[DynamicCache] = []
@@ -186,7 +188,7 @@ def block_generate(
 
     outputs = model.generate(
         input_ids=input_ids, generation_config=generation_config, past_key_values=past_key_values,
-        use_cache=True, eos_token_id=[tokenizer.eos_token_id], tokenizer=tokenizer
+        attention_mask=torch.ones(input_length).unsqueeze(0).to(model.device), use_cache=True, eos_token_id=[tokenizer.eos_token_id], tokenizer=tokenizer
     )
     return tokenizer.decode(token_ids=outputs[0][input_length:].tolist())
 
@@ -243,11 +245,14 @@ def main():
     )
 
     for i in dataset:
+        i["prompt"]  = i["prompt"].replace('( ', ' (')
         generated = block_generate(
             prompt=i["prompt"], generation_config=generation_config, model=model, emb=emb, tokenizer=tokenizer
         )
         print("Prompt:")
         print(i["prompt"])
+        print("Ground truth:")
+        print(i["answers"])
         print("Generated: ")
         print(generated)
         input()

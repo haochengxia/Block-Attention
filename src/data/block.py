@@ -36,8 +36,10 @@ SFTDataInstance = TypedDict("SFTDataInstance", {
 def make_block_attention_for_llama3(ins: SFTDataInstance, tokenizer: PreTrainedTokenizer) -> torch.Tensor:
     content = ins["prompt"] + ins["generated"]
     blocks: List[str] = [
-        "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are an intelligent AI assistant. Please answer questions based on the user's instructions. Below are some reference documents that may help you in answering the user's questions.\n\n"
+        "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are an intelligent AI assistant. Please answer questions based on the user's instructions. Below are some reference documents that may help you in answering the user's question.\n\n",
+        # "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are an intelligent AI assistant. Please answer questions based on the user's instructions. Below are some reference documents that may help you in answering the user's questions.\n\n"
     ]
+    # print(content)
     assert content.startswith(blocks[0])
     content = content[len(blocks[0]):]
 
@@ -56,9 +58,11 @@ def make_block_attention_for_llama3(ins: SFTDataInstance, tokenizer: PreTrainedT
     blocks.append("<|eot_id|>" + instruction_ans_response)
 
     assert blocks[-1].startswith(
-        "<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n"
-        "Please write a high-quantify answer for the given question using only the provided search documents"
+        "<|eot_id|><|start_header_id|>user<|end_header_id|>\n\nPlease write a high-quality answer for the given question using only the provided search documents (some of which might be irrelevant)"
+        # "<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n"
+        # "Please write a high-quantify answer for the given question using only the provided search documents"
     )
+
     blocks = [b for b in blocks if b != ""]
 
     block_input_ids = []
@@ -103,7 +107,9 @@ class BlockAttentionRawDataset:
         self.raw_dataset.clear()
         with open(self.fp, "r", encoding="utf-8") as f:
             items: List[SFTDataInstance] = [json.loads(i) for i in f]
-
+            items_filtered: List[SFTDataInstance] = [item for item in items if isinstance(item["generated"], str)]
+            print(f"[INFO] items number before filtering {len(items)} after {len(items_filtered)}")
+            items = items_filtered
             for i in range(0, len(items)):
                 prompt, generated = items[i]["prompt"], items[i]["generated"]
                 p_input_ids = self.tokenizer.encode(prompt, add_special_tokens=False)

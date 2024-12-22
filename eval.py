@@ -12,7 +12,7 @@ from dataclasses import dataclass
 
 from typing import Any, Dict, List, TypedDict
 
-from urllib3.contrib.securetransport import orig_util_SSLContext
+#from urllib3.contrib.securetransport import orig_util_SSLContext
 
 Document = TypedDict("Document", {"title": str, "text": str, "score": float})
 
@@ -100,12 +100,16 @@ def main(args: EvalArgs):
 
     all_example_metrics = []
     for example in tqdm(all_examples, total=len(all_examples), desc="Eval: "):
+        print(example["generated"])
+        if example["generated"] is None:
+            print("broken example", example)
+            continue
         all_example_metrics.append(get_metrics_for_example(example=example))
 
     print("All Examples: ", len(all_examples))
 
     for _, metric in METRICS:
-        average = statistics.mean(em[metric]  for em, _ in all_examples)
+        average = statistics.mean(em[metric]  for em, _ in all_example_metrics)
         print(f"{metric}: {average}")
 
 
