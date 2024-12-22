@@ -199,6 +199,7 @@ class Args:
     input_file: str
     output_file: str
     interactive: bool = False
+    num: int = 500
 
 
 def parse_args() -> Args:
@@ -207,9 +208,11 @@ def parse_args() -> Args:
     parser.add_argument("--input_file", type=str)
     parser.add_argument("--output_file", type=str)
     parser.add_argument("--interactive", type=bool, default=False)
+    parser.add_argument("--num", type=int, default=500)
     args = parser.parse_args()
     return Args(model_name=args.model_name, input_file=args.input_file, 
-                output_file=args.output_file, interactive=args.interactive)
+                output_file=args.output_file, interactive=args.interactive,
+                num=args.num)
 
 
 def write_jsonline(fp: str, obj: List[Any]):
@@ -255,9 +258,15 @@ def main():
         stop_strings=['<|im_end|>', "<|eot_id|>", "<|end_of_text|>", "<|endoftext|>"]
     )
 
+    max_num = args.num
+    count = 0
     res = []
 
     for i in dataset:
+        if count % 100 == 0:
+            print(f"Processed {count}/{max_num} prompts")
+        if count >= max_num:
+            break
         # TODO(haocheng): reformate the prompt
         # i["prompt"]  = i["prompt"].replace('( ', ' (')
         generated = block_generate(
@@ -272,6 +281,7 @@ def main():
             print(i["generated"])
             input()
         res.append(i)
+        count += 1
     
     write_jsonline(args.output_file, res)
 
