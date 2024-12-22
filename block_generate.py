@@ -197,14 +197,25 @@ def block_generate(
 class Args:
     model_name: str
     input_file: str
+    output_file: str
+    interactive: bool = False
 
 
 def parse_args() -> Args:
     parser = argparse.ArgumentParser()
     parser.add_argument("--model_name", type=str)
     parser.add_argument("--input_file", type=str)
+    parser.add_argument("--output_file", type=str)
+    parser.add_argument("--interactive", type=bool, default=False)
     args = parser.parse_args()
-    return Args(model_name=args.model_name, input_file=args.input_file)
+    return Args(model_name=args.model_name, input_file=args.input_file, 
+                output_file=args.output_file, interactive=args.interactive)
+
+
+def write_jsonline(fp: str, obj: List[Any]):
+    with open(fp, "w", encoding="utf-8") as f:
+        for i in obj:
+            f.write(json.dumps(i, ensure_ascii=False) + "\n")
 
 
 def main():
@@ -244,18 +255,26 @@ def main():
         stop_strings=['<|im_end|>', "<|eot_id|>", "<|end_of_text|>", "<|endoftext|>"]
     )
 
+    res = []
+
     for i in dataset:
-        i["prompt"]  = i["prompt"].replace('( ', ' (')
+        # TODO(haocheng): reformate the prompt
+        # i["prompt"]  = i["prompt"].replace('( ', ' (')
         generated = block_generate(
             prompt=i["prompt"], generation_config=generation_config, model=model, emb=emb, tokenizer=tokenizer
         )
-        print("Prompt:")
-        print(i["prompt"])
-        print("Ground truth:")
-        print(i["answers"])
-        print("Generated: ")
-        print(generated)
-        input()
+        i["generated"] = generated
+
+        if args.interactive:
+            print("Prompt:")
+            print(i["prompt"])
+            print("Generated: ")
+            print(i["generated"])
+            input()
+        res.append(i)
+    
+    write_jsonline(args.output_file, res)
+
 
 
 if __name__ == '__main__':
