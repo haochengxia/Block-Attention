@@ -32,7 +32,7 @@ SFTDataInstance = TypedDict("SFTDataInstance", {
 
 @torch.no_grad()
 def generate(
-        prompt: str, generation_config: GenerationConfig, model: LlamaForCausalLM, emb: LlamaRotaryEmbedding,
+        prompt: str, generation_config: GenerationConfig, model: LlamaForCausalLM,
         tokenizer: PreTrainedTokenizer
 ) -> str:
     input_ids = torch.tensor(

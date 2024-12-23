@@ -139,13 +139,13 @@ def build_block_past_key_values(
     assert documents.startswith("- Title:") and documents.endswith("<|eot_id|>"), documents
     blocks.append(documents[:-len("<|eot_id|>")])
     instruction_ans_response = "<|eot_id|>" + instruction_ans_response
-
-    assert instruction_ans_response.startswith(
-        "<|eot_id|><|start_header_id|>user<|end_header_id|>\n\nPlease write a high-quality answer for the given question using only the provided search documents (some of which might be irrelevant)"
+    
+    # assert instruction_ans_response.startswith(
+    #    "<|eot_id|><|start_header_id|>user<|end_header_id|>\n\nPlease write a high-quality answer for the given question using only the provided search documents (some of which might be irrelevant)"
         # "<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n"
         # "Please write a high-quantify answer for the given question using only the provided search documents"
-    )
-    instruction_ans_response += "\nNow you have time to read the documents above carefully and then give me the answer<eot_id>"
+    # )
+    # instruction_ans_response += "\nNow you have time to read the documents above carefully and then give me the answer<eot_id>"
     blocks = [b for b in blocks if b != ""]
 
     caches: List[DynamicCache] = []
