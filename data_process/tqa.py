@@ -83,8 +83,8 @@ def tokenizer_instance(ins: SFTDataInstance) -> SFTDataInstance:
         system_prompt += f"- Title: {doc['title']}\n{doc['text'].strip()}\n"
     system_prompt = system_prompt.strip()
 
-    user_prompt = f"Please write a high-quantify answer for the given question using only the provided search documents (some of which might be irrelevant).\nQuestion: {ins['question']}".strip()
-    prompt = retrieval_tokenizer.apply_chat_template(
+    user_prompt = f"Please write a high-quality answer for the given question using only the provided search documents (some of which might be irrelevant).\nQuestion: {ins['question']}".strip()
+    prompt = llama3_tokenizer.apply_chat_template(
         conversation=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}
@@ -142,7 +142,7 @@ if __name__ == '__main__':
     )
 
     llama3_tokenizer: PreTrainedTokenizer = AutoTokenizer.from_pretrained(
-        pretrained_model_name_or_path="meta-llama/Meta-Llama-3-8B",
+        pretrained_model_name_or_path="meta-llama/Llama-3.2-1B",
         use_fast=False
     )
     if llama3_tokenizer.chat_template is None:

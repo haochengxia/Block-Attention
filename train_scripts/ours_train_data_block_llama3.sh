@@ -5,7 +5,7 @@ DS_CONFIG="${PROJECT_DIR}/configs/deepspeed_stage2.json"
 # MODEL_NAME="meta-llama/Meta-Llama-3-8B" 
 MODEL_NAME="meta-llama/Llama-3.2-1B"
 # MODEL_NAME="meta-llama/Llama-3.1-8B"
-TRAIN_FP="cache/tqa_2wiki_p20k"
+TRAIN_FP="cache/wiki_p20k"
 EVAL_FP="cache/2wiki_dev/dataset"
 SAVE_DIR="model"
 

@@ -63,6 +63,8 @@ def make_block_attention_for_llama3(ins: SFTDataInstance, tokenizer: PreTrainedT
         # "Please write a high-quantify answer for the given question using only the provided search documents"
     )
 
+    # <|eot_id|><|start_header_id|>user<|end_header_id|>\n\nPlease write a high-quality answer for the given question using only the provided search documents (some of which might be irrelevant).\nQuestion: 
+
     blocks = [b for b in blocks if b != ""]
 
     block_input_ids = []

@@ -21,3 +21,10 @@ python3 full_generate.py --model_name meta-llama/Llama-3.2-1B-Instruct --input_f
 python3 full_generate.py --model_name meta-llama/Llama-3.2-1B --input_file cache/2wiki_dev/dataset --output_file cache/benchmark/full_2wiki_base
 python3 full_generate.py --model_name meta-llama/Llama-3.2-1B --input_file cache/hqa_eval/dataset --output_file cache/benchmark/full_hqa_base
 ```
+
+
+```
+python3 data_process/nq.py --eval_fp datahub/FiD/open_domain_data/NQ/test.json --output_dir cache
+
+python3 data_process/tqa.py --eval_fp datahub/FiD/open_domain_data/TQA/test.json --train_fp datahub/FiD/open_domain_data/TQA/train.json --output_dir cache
+```

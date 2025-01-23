@@ -141,12 +141,10 @@ def build_block_past_key_values(
     blocks.append(documents[:-len("<|eot_id|>")])
     instruction_ans_response = "<|eot_id|>" + instruction_ans_response
     
-    # assert instruction_ans_response.startswith(
-    #    "<|eot_id|><|start_header_id|>user<|end_header_id|>\n\nPlease write a high-quality answer for the given question using only the provided search documents (some of which might be irrelevant)"
-        # "<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n"
-        # "Please write a high-quantify answer for the given question using only the provided search documents"
-    # )
-    # instruction_ans_response += "\nNow you have time to read the documents above carefully and then give me the answer<eot_id>"
+    assert instruction_ans_response.startswith(
+        "<|eot_id|><|start_header_id|>user<|end_header_id|>\n\nPlease write a high-quality answer for the given question using only the provided search documents (some of which might be irrelevant)"
+    )
+
     blocks = [b for b in blocks if b != ""]
 
     caches: List[DynamicCache] = []
@@ -234,7 +232,7 @@ def parse_args() -> Args:
     parser.add_argument("--input_file", type=str)
     parser.add_argument("--output_file", type=str)
     parser.add_argument("--interactive", type=bool, default=False)
-    parser.add_argument("--num", type=int, default=500)
+    parser.add_argument("--num", type=int, default=50)
     args = parser.parse_args()
     return Args(model_name=args.model_name, input_file=args.input_file, 
                 output_file=args.output_file, interactive=args.interactive,
@@ -279,6 +277,7 @@ def main():
         temperature=1.0,
         repetition_penalty=1.0,
         num_beams=1,
+        # eos_token_id=None,
         eos_token_id=tokenizer.eos_token_id,
         max_new_tokens=200,
         stop_strings=['<|im_end|>', "<|eot_id|>", "<|end_of_text|>", "<|endoftext|>"]
@@ -289,7 +288,7 @@ def main():
     res = []
 
     for i in dataset:
-        if count % 100 == 0:
+        if count % 10 == 0:
             print(f"Processed {count}/{max_num} prompts")
         if count >= max_num:
             break
@@ -299,7 +298,7 @@ def main():
             prompt=i["prompt"], generation_config=generation_config, model=model, emb=emb, tokenizer=tokenizer
         )
         i["generated"] = generated
-
+        print(i["generated"])
         if args.interactive:
             print("Prompt:")
             print(i["prompt"])

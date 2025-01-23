@@ -53,6 +53,9 @@ def normalize_answer(s: str) -> str:
     return white_space_fix(remove_articles(remove_punc(lower(s))))
 
 def best_subspan_em(prediction: str, ground_truths: List[str]) -> float:
+    if isinstance(ground_truths[0], list):
+        ground_truths = ground_truths[0]
+
     normalized_prediction = normalize_answer(prediction)
     for ground_truth in ground_truths:
         normalized_ground_truth = normalize_answer(ground_truth)
@@ -64,6 +67,9 @@ def precision_recall_f1(prediction: str, ground_truths: List[str]) -> Dict[str, 
     """
     Calculate precision, recall, and F1 score for a single example.
     """
+    if isinstance(ground_truths[0], list):
+        ground_truths = ground_truths[0]
+
     normalized_prediction = normalize_answer(prediction).split()
     normalized_ground_truths = [normalize_answer(gt).split() for gt in ground_truths]
 

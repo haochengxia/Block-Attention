@@ -41,9 +41,12 @@ def generate(
             device=model.device
     )
     input_length = input_ids.size(-1)
+    attention_mask = torch.ones_like(input_ids, dtype=torch.int64, device=model.device)
     outputs = model.generate(
         input_ids=input_ids, generation_config=generation_config, past_key_values=DynamicCache(),
-        use_cache=True, eos_token_id=[tokenizer.eos_token_id], tokenizer=tokenizer
+        use_cache=True, eos_token_id=None, # [tokenizer.eos_token_id], 
+        tokenizer=tokenizer, 
+        attention_mask=attention_mask, pad_token_id=tokenizer.eos_token_id
     )
     return tokenizer.decode(token_ids=outputs[0][input_length:].tolist())
 
@@ -63,7 +66,7 @@ def parse_args() -> Args:
     parser.add_argument("--input_file", type=str)
     parser.add_argument("--output_file", type=str)
     parser.add_argument("--interactive", type=bool, default=False)
-    parser.add_argument("--num", type=int, default=500)
+    parser.add_argument("--num", type=int, default=50)
     args = parser.parse_args()
     return Args(model_name=args.model_name, input_file=args.input_file, 
                 output_file=args.output_file, interactive=args.interactive,
@@ -103,16 +106,17 @@ def main():
         temperature=1.0,
         repetition_penalty=1.0,
         num_beams=1,
-        eos_token_id=tokenizer.eos_token_id,
+        eos_token_id=None,
+        # eos_token_id=tokenizer.eos_token_id,
         max_new_tokens=200,
-        stop_strings=['<|im_end|>', "<|eot_id|>", "<|end_of_text|>", "<|endoftext|>"]
+        # stop_strings=['<|im_end|>', "<|eot_id|>", "<|end_of_text|>", "<|endoftext|>"]
     )
 
     max_num = args.num
     count = 0
     res = []
     for i in dataset:
-        if count % 100 == 0:
+        if count % 10 == 0:
             print(f"Processed {count}/{max_num} prompts")
         if count >= max_num:
             break
@@ -120,7 +124,7 @@ def main():
             prompt=i["prompt"], generation_config=generation_config, model=model, tokenizer=tokenizer
         )
         i["generated"] = generated
-
+        print(i["generated"])
         if args.interactive:
             print("Prompt:")
             print(i["prompt"])
