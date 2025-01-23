@@ -33,7 +33,7 @@ SFTDataInstance = TypedDict("SFTDataInstance", {
 })
 
 
-def make_block_attention_for_llama3(ins: SFTDataInstance, tokenizer: PreTrainedTokenizer) -> torch.Tensor:
+def make_block_attention_for_llama3(ins: SFTDataInstance, tokenizer: PreTrainedTokenizer, attend_to_first_block: bool = False) -> torch.Tensor:
     content = ins["prompt"] + ins["generated"]
     blocks: List[str] = [
         "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are an intelligent AI assistant. Please answer questions based on the user's instructions. Below are some reference documents that may help you in answering the user's question.\n\n",
@@ -93,6 +93,13 @@ def make_block_attention_for_llama3(ins: SFTDataInstance, tokenizer: PreTrainedT
     attention_mask = attention_mask.masked_fill_(
         mask=attention_mask.to(dtype=torch.bool), value=torch.finfo(torch.bfloat16).min
     )
+
+    if attend_to_first_block:
+        # get the size of the first block
+        first_block_size = block_num_tokens[0]
+        # set the first block to be attended to by all tokens
+        attention_mask[:, 0:first_block_size] = 1.0
+
     return attention_mask.unsqueeze(dim=0).unsqueeze(dim=0)
 
 

@@ -13,7 +13,8 @@ from transformers.modeling_outputs import CausalLMOutputWithPast
 from transformers.models.llama.modeling_llama import LlamaRotaryEmbedding, LlamaConfig, LlamaForCausalLM
 
 from transformers import (
-    AutoTokenizer, PreTrainedTokenizer, AutoModelForCausalLM, PreTrainedModel, GenerationConfig, set_seed, AutoConfig
+    AutoTokenizer, PreTrainedTokenizer, AutoModelForCausalLM, PreTrainedModel, GenerationConfig, set_seed, AutoConfig, 
+    LogitsProcessor
 )
 
 
@@ -186,9 +187,34 @@ def block_generate(
     past_key_values = merge_and_rotary_past_key_values(pkvs=past_key_values, emb=emb)
     input_length = input_ids.size(-1)
 
+    import numpy as np
+    
+    class LogitsMask(LogitsProcessor):
+        """
+        LogitsMask is a LogitsProcessor that masks logits for tokens that are 
+        not in the allowed token ids set.
+        """
+        def __init__(self, forbidden_token_ids):
+            self.forbidden_token_ids = set(forbidden_token_ids)
+
+        def __call__(self, input_ids, scores):
+            mask = np.zeros_like(scores)
+            for token_id in self.forbidden_token_ids:
+                mask[:, token_id] = -1e10
+            scores = scores + mask
+            return scores
+    
+    # '<|im_end|>', "<|eot_id|>", "<|end_of_text|>", "<|endoftext|>"
+    custom_mask_processor = LogitsMask(forbidden_token_ids=[tokenizer.eos_token_id,
+                                                            tokenizer.convert_tokens_to_ids("<|eot_id|>"), 
+                                                            tokenizer.convert_tokens_to_ids("<|im_end|>"), 
+                                                            tokenizer.convert_tokens_to_ids("<|end_of_text|>"), 
+                                                            tokenizer.convert_tokens_to_ids("<|endoftext|>")])
+
     outputs = model.generate(
         input_ids=input_ids, generation_config=generation_config, past_key_values=past_key_values,
-        attention_mask=torch.ones(input_length).unsqueeze(0).to(model.device), use_cache=True, eos_token_id=[tokenizer.eos_token_id], tokenizer=tokenizer
+        use_cache=True, eos_token_id=[tokenizer.eos_token_id], tokenizer=tokenizer,
+        logits_processor=[custom_mask_processor]
     )
     return tokenizer.decode(token_ids=outputs[0][input_length:].tolist())
 
