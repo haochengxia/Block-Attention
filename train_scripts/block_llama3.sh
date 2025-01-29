@@ -1,12 +1,14 @@
 PROJECT_DIR="/projects/bdjx/hxia3/Block-Attention"
 
-DS_CONFIG="${PROJECT_DIR}/configs/deepspeed_stage2.json"
+DS_CONFIG="${PROJECT_DIR}/configs/deepspeed_stage0.json"
 
 # MODEL_NAME="meta-llama/Meta-Llama-3-8B" 
 MODEL_NAME="meta-llama/Llama-3.2-1B"
 # MODEL_NAME="meta-llama/Llama-3.1-8B"
-TRAIN_FP="cache/tqa_2wiki_p20k"
-EVAL_FP="cache/2wiki_dev/dataset"
+TRAIN_FP="cache/tqa_p20k"
+# TRAIN_FP="cache/tqa_2wiki_p20k"
+EVAL_FP="cache/tqa_eval/dataset"
+# EVAL_FP="cache/2wiki_dev/dataset"
 SAVE_DIR="model"
 
 # deepspeed --num_gpus 1 trainer.py \
@@ -37,7 +39,7 @@ SAVE_DIR="model"
 #   --logging_dir $SAVE_DIR \
 #   --deepspeed $DS_CONFIG
 
-deepspeed --num_gpus 4 trainer.py \
+deepspeed --num_gpus 1 trainer.py \
   --model_name $MODEL_NAME \
   --train_fp $TRAIN_FP \
   --eval_fp $EVAL_FP \
@@ -56,9 +58,9 @@ deepspeed --num_gpus 4 trainer.py \
   --lr_scheduler_type "constant_with_warmup" \
   --evaluation_strategy "steps" \
   --optim "adamw_torch" \
-  --eval_steps 1000 \
+  --eval_steps 100 \
   --warmup_steps 20 \
-  --num_train_epochs 8 \
+  --num_train_epochs 1 \
   --bf16 \
   --gradient_checkpointing \
   --output_dir $SAVE_DIR \

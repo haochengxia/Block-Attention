@@ -102,8 +102,8 @@ def main():
     )
 
     generation_config = GenerationConfig(
-        do_sample=False,
-        temperature=1.0,
+        do_sample=True, #False,
+        temperature=0.6, # 1.0,
         repetition_penalty=1.0,
         num_beams=1,
         eos_token_id=None,

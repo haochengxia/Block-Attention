@@ -1,0 +1,182 @@
+Running cache/benchmark/block_2wiki_instruct_0123...
+All Examples:  50
+best_subspan_em: 0.08
+precision_recall_f1_precision: 0.03115430472723033
+precision_recall_f1_recall: 0.21033333333333334
+precision_recall_f1_f1: 0.0486076783633544
+Finished cache/benchmark/block_2wiki_instruct_0123...
+Running cache/benchmark/block_2wiki_base_0123...
+All Examples:  50
+best_subspan_em: 0.12
+precision_recall_f1_precision: 0.021090757557108947
+precision_recall_f1_recall: 0.14233333333333334
+precision_recall_f1_f1: 0.03394419860845867
+Finished cache/benchmark/block_2wiki_base_0123...
+Running cache/benchmark/block_2wiki_0123_checkpoint-500...
+All Examples:  50
+best_subspan_em: 0.22
+precision_recall_f1_precision: 0.01083372905424284
+precision_recall_f1_recall: 0.23333333333333334
+precision_recall_f1_f1: 0.020370746538397082
+Finished cache/benchmark/block_2wiki_0123_checkpoint-500...
+Running cache/benchmark/block_2wiki_0123_checkpoint-1000...
+All Examples:  50
+best_subspan_em: 0.48
+precision_recall_f1_precision: 0.0545916652879361
+precision_recall_f1_recall: 0.54
+precision_recall_f1_f1: 0.0907266353392884
+Finished cache/benchmark/block_2wiki_0123_checkpoint-1000...
+Running cache/benchmark/block_2wiki_0123_checkpoint-1500...
+All Examples:  50
+best_subspan_em: 0.42
+precision_recall_f1_precision: 0.050951003448432494
+precision_recall_f1_recall: 0.517
+precision_recall_f1_f1: 0.08727826665188744
+Finished cache/benchmark/block_2wiki_0123_checkpoint-1500...
+Running cache/benchmark/block_2wiki_0123_checkpoint-2000...
+All Examples:  50
+best_subspan_em: 0.52
+precision_recall_f1_precision: 0.06927840924027713
+precision_recall_f1_recall: 0.5993333333333334
+precision_recall_f1_f1: 0.11094244152279993
+Finished cache/benchmark/block_2wiki_0123_checkpoint-2000...
+Running cache/benchmark/block_2wiki_0123_checkpoint-2500...
+All Examples:  50
+best_subspan_em: 0.46
+precision_recall_f1_precision: 0.05381912138296913
+precision_recall_f1_recall: 0.5216666666666666
+precision_recall_f1_f1: 0.088582607533348
+Finished cache/benchmark/block_2wiki_0123_checkpoint-2500...
+Running cache/benchmark/block_2wiki_0123_checkpoint-3000...
+All Examples:  50
+best_subspan_em: 0.54
+precision_recall_f1_precision: 0.05846049285016767
+precision_recall_f1_recall: 0.5733333333333334
+precision_recall_f1_f1: 0.09645950871639386
+Finished cache/benchmark/block_2wiki_0123_checkpoint-3000...
+Running cache/benchmark/block_2wiki_0123_checkpoint-3500...
+All Examples:  50
+best_subspan_em: 0.62
+precision_recall_f1_precision: 0.06226295426560446
+precision_recall_f1_recall: 0.6533333333333333
+precision_recall_f1_f1: 0.1080494909768594
+Finished cache/benchmark/block_2wiki_0123_checkpoint-3500...
+Running cache/benchmark/block_2wiki_0123_checkpoint-4000...
+All Examples:  50
+best_subspan_em: 0.54
+precision_recall_f1_precision: 0.052239375211047746
+precision_recall_f1_recall: 0.605
+precision_recall_f1_f1: 0.09123188855979157
+Finished cache/benchmark/block_2wiki_0123_checkpoint-4000...
+Running cache/benchmark/block_2wiki_0123_checkpoint-4500...
+All Examples:  50
+best_subspan_em: 0.56
+precision_recall_f1_precision: 0.061144014915344824
+precision_recall_f1_recall: 0.61
+precision_recall_f1_f1: 0.10174296997674596
+Finished cache/benchmark/block_2wiki_0123_checkpoint-4500...
+Running cache/benchmark/full_2wiki_instruct_0123...
+All Examples:  50
+best_subspan_em: 0.62
+precision_recall_f1_precision: 0.05591618333679742
+precision_recall_f1_recall: 0.655
+precision_recall_f1_f1: 0.0985211321076204
+Finished cache/benchmark/full_2wiki_instruct_0123...
+Running cache/benchmark/full_2wiki_base_0123...
+All Examples:  50
+best_subspan_em: 0.5
+precision_recall_f1_precision: 0.023754717161577954
+precision_recall_f1_recall: 0.529
+precision_recall_f1_f1: 0.0445532410879666
+Finished cache/benchmark/full_2wiki_base_0123...
+Running cache/benchmark/block_hqa_instruct_0123...
+All Examples:  50
+best_subspan_em: 0.08
+precision_recall_f1_precision: 0.012786524539137664
+precision_recall_f1_recall: 0.0925
+precision_recall_f1_f1: 0.021957200260098904
+Finished cache/benchmark/block_hqa_instruct_0123...
+Running cache/benchmark/block_hqa_base_0123...
+All Examples:  50
+best_subspan_em: 0.02
+precision_recall_f1_precision: 0.00808567987941411
+precision_recall_f1_recall: 0.066
+precision_recall_f1_f1: 0.014317701835196914
+Finished cache/benchmark/block_hqa_base_0123...
+Running cache/benchmark/block_hqa_0123_checkpoint-500...
+All Examples:  50
+best_subspan_em: 0.02
+precision_recall_f1_precision: 0.0069396051103368175
+precision_recall_f1_recall: 0.034166666666666665
+precision_recall_f1_f1: 0.010555555555555556
+Finished cache/benchmark/block_hqa_0123_checkpoint-500...
+Running cache/benchmark/block_hqa_0123_checkpoint-1000...
+All Examples:  50
+best_subspan_em: 0.04
+precision_recall_f1_precision: 0.014311076604554865
+precision_recall_f1_recall: 0.06833333333333333
+precision_recall_f1_f1: 0.0224338801295323
+Finished cache/benchmark/block_hqa_0123_checkpoint-1000...
+Running cache/benchmark/block_hqa_0123_checkpoint-1500...
+All Examples:  50
+best_subspan_em: 0.08
+precision_recall_f1_precision: 0.022571290562002636
+precision_recall_f1_recall: 0.123
+precision_recall_f1_f1: 0.03676907745628809
+Finished cache/benchmark/block_hqa_0123_checkpoint-1500...
+Running cache/benchmark/block_hqa_0123_checkpoint-2000...
+All Examples:  50
+best_subspan_em: 0.04
+precision_recall_f1_precision: 0.022962142397626267
+precision_recall_f1_recall: 0.09966666666666667
+precision_recall_f1_f1: 0.03583461341525858
+Finished cache/benchmark/block_hqa_0123_checkpoint-2000...
+Running cache/benchmark/block_hqa_0123_checkpoint-2500...
+All Examples:  50
+best_subspan_em: 0.02
+precision_recall_f1_precision: 0.027135009065955357
+precision_recall_f1_recall: 0.08966666666666667
+precision_recall_f1_f1: 0.03885612535612536
+Finished cache/benchmark/block_hqa_0123_checkpoint-2500...
+Running cache/benchmark/block_hqa_0123_checkpoint-3000...
+All Examples:  50
+best_subspan_em: 0.02
+precision_recall_f1_precision: 0.015883900582176445
+precision_recall_f1_recall: 0.06466666666666666
+precision_recall_f1_f1: 0.024159142357359675
+Finished cache/benchmark/block_hqa_0123_checkpoint-3000...
+Running cache/benchmark/block_hqa_0123_checkpoint-3500...
+All Examples:  50
+best_subspan_em: 0.04
+precision_recall_f1_precision: 0.026294372294372294
+precision_recall_f1_recall: 0.09783333333333333
+precision_recall_f1_f1: 0.038955247650899825
+Finished cache/benchmark/block_hqa_0123_checkpoint-3500...
+Running cache/benchmark/block_hqa_0123_checkpoint-4000...
+All Examples:  50
+best_subspan_em: 0.04
+precision_recall_f1_precision: 0.023396384008148714
+precision_recall_f1_recall: 0.09616666666666666
+precision_recall_f1_f1: 0.03580525842444001
+Finished cache/benchmark/block_hqa_0123_checkpoint-4000...
+Running cache/benchmark/block_hqa_0123_checkpoint-4500...
+All Examples:  50
+best_subspan_em: 0.06
+precision_recall_f1_precision: 0.02438273889852837
+precision_recall_f1_recall: 0.107
+precision_recall_f1_f1: 0.035838624338624336
+Finished cache/benchmark/block_hqa_0123_checkpoint-4500...
+Running cache/benchmark/full_hqa_instruct_0123...
+All Examples:  50
+best_subspan_em: 0.64
+precision_recall_f1_precision: 0.0443122673479214
+precision_recall_f1_recall: 0.6541666666666667
+precision_recall_f1_f1: 0.07973396502335126
+Finished cache/benchmark/full_hqa_instruct_0123...
+Running cache/benchmark/full_hqa_base_0123...
+All Examples:  50
+best_subspan_em: 0.38
+precision_recall_f1_precision: 0.012639978336658917
+precision_recall_f1_recall: 0.4345
+precision_recall_f1_f1: 0.02443131684391839
+Finished cache/benchmark/full_hqa_base_0123...

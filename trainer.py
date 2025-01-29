@@ -122,7 +122,7 @@ if __name__ == '__main__':
                 train_prompt=data_args.train_prompt
             )
             eval_dataset: Dataset = get_dataset_block(
-                fp=data_args.train_fp, max_length=data_args.max_length, tokenizer=tokenizer,
+                fp=data_args.eval_fp, max_length=data_args.max_length, tokenizer=tokenizer,
                 train_prompt=data_args.train_prompt
             )
 
