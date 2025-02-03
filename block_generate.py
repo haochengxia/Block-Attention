@@ -212,7 +212,7 @@ def block_generate(
         input_ids=input_ids, generation_config=generation_config, past_key_values=past_key_values,
         use_cache=True, eos_token_id=[tokenizer.eos_token_id], tokenizer=tokenizer,
         attention_mask=torch.ones_like(input_ids).to(device=model.device), pad_token_id=tokenizer.eos_token_id,
-        logits_processor=[custom_mask_processor]
+        # logits_processor=[custom_mask_processor]
     )
     return tokenizer.decode(token_ids=outputs[0][input_length:].tolist())
 
@@ -259,11 +259,13 @@ def main():
         attn_implementation="flash_attention_2"
     )
     config: LlamaConfig = AutoConfig.from_pretrained(pretrained_model_name_or_path=args.model_name)
-    emb: LlamaRotaryEmbedding = LlamaRotaryEmbedding(
-        dim=config.hidden_size // config.num_attention_heads,
-        max_position_embeddings=config.max_position_embeddings,
-        base=config.rope_theta
-    ).to(device=model.device, dtype=torch.float32)
+    print("max position", config.max_position_embeddings)
+    # emb: LlamaRotaryEmbedding = LlamaRotaryEmbedding(
+    #     dim=config.hidden_size // config.num_attention_heads,
+    #     max_position_embeddings=config.max_position_embeddings,
+    #     base=config.rope_theta
+    # ).to(device=model.device, dtype=torch.float32)
+    emb: LlamaRotaryEmbedding = LlamaRotaryEmbedding(config=config).to(device=model.device, dtype=torch.float32)
     model.eval()
     emb.eval()
 
@@ -273,8 +275,8 @@ def main():
     )
 
     generation_config = GenerationConfig(
-        do_sample=True, # False, # True
-        temperature= 0.6, # 1.0, # 0.6,
+        do_sample=False, # False, # True
+        temperature= 1.0, # 1.0, # 0.6,
         repetition_penalty=1.0,
         num_beams=1,
         # eos_token_id=None,
@@ -282,6 +284,7 @@ def main():
         max_new_tokens=200,
         stop_strings=['<|im_end|>', "<|eot_id|>", "<|end_of_text|>", "<|endoftext|>"]
     )
+
 
     max_num = args.num
     count = 0

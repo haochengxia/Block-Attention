@@ -1,16 +1,15 @@
 PROJECT_DIR="/projects/bdjx/hxia3/Block-Attention"
 
-DS_CONFIG="${PROJECT_DIR}/configs/alpaca.json"
+DS_CONFIG="${PROJECT_DIR}/configs/deepspeed_stage2.json"
 
-# MODEL_NAME="meta-llama/Meta-Llama-3-8B" 
 
-MODEL_NAME="meta-llama/Llama-3.1-8B" 
+MODEL_NAME="deepseek-ai/DeepSeek-R1-Distill-Llama-8B" 
 TRAIN_FP="cache/2wiki_tqa_p20k"
 # TRAIN_FP="cache/tqa_p5k"
 EVAL_FP="cache/tqa_eval/dataset_20"
-SAVE_DIR="/work/hdd/bdjx/hxia3/models"
+SAVE_DIR="/work/hdd/bdjx/hxia3/models/ds-llama"
 
-deepspeed --num_gpus 4 trainer.py \
+deepspeed --num_gpus 8 trainer.py \
   --model_name $MODEL_NAME \
   --train_fp $TRAIN_FP \
   --eval_fp $EVAL_FP \
