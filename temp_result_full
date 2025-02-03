@@ -1,0 +1,237 @@
+Run meta-llama/Meta-Llama-3-8B-Instruct over 2wiki
+All Examples:  50
+best_subspan_em: 0.8
+precision_recall_f1_precision: 0.0678253498800584
+precision_recall_f1_recall: 0.8126666666666666
+precision_recall_f1_f1: 0.1220606065812436
+Run meta-llama/Meta-Llama-3-8B-Instruct over hqa
+All Examples:  50
+best_subspan_em: 0.74
+precision_recall_f1_precision: 0.049390472632281135
+precision_recall_f1_recall: 0.7891666666666667
+precision_recall_f1_f1: 0.0903458169989699
+Run meta-llama/Meta-Llama-3-8B-Instruct over tqa
+All Examples:  50
+best_subspan_em: 0.62
+precision_recall_f1_precision: 0.09460265338909121
+precision_recall_f1_recall: 0.3267553592972715
+precision_recall_f1_f1: 0.12357935695879577
+Run meta-llama/Meta-Llama-3-8B-Instruct over nq
+All Examples:  50
+best_subspan_em: 0.64
+precision_recall_f1_precision: 0.04785586065523801
+precision_recall_f1_recall: 0.7034583333333333
+precision_recall_f1_f1: 0.08474567568244833
+Run meta-llama/Llama-3.1-8B-Instruct over 2wiki
+All Examples:  50
+best_subspan_em: 0.86
+precision_recall_f1_precision: 0.05248091661668578
+precision_recall_f1_recall: 0.8333333333333334
+precision_recall_f1_f1: 0.09728956288857651
+Run meta-llama/Llama-3.1-8B-Instruct over hqa
+All Examples:  50
+best_subspan_em: 0.86
+precision_recall_f1_precision: 0.058166491120343666
+precision_recall_f1_recall: 0.8666666666666667
+precision_recall_f1_f1: 0.10532587631058042
+Run meta-llama/Llama-3.1-8B-Instruct over tqa
+All Examples:  50
+best_subspan_em: 0.58
+precision_recall_f1_precision: 0.0842916077446263
+precision_recall_f1_recall: 0.3094611764992187
+precision_recall_f1_f1: 0.10853022297814577
+Run meta-llama/Llama-3.1-8B-Instruct over nq
+All Examples:  50
+best_subspan_em: 0.64
+precision_recall_f1_precision: 0.04406956313909264
+precision_recall_f1_recall: 0.7270416666666667
+precision_recall_f1_f1: 0.08023928102843537
+Run deepseek-ai/DeepSeek-R1-Distill-Llama-8B over 2wiki
+All Examples:  50
+best_subspan_em: 0.78
+precision_recall_f1_precision: 0.05392201912185783
+precision_recall_f1_recall: 0.7433333333333333
+precision_recall_f1_f1: 0.09773088985566653
+Run deepseek-ai/DeepSeek-R1-Distill-Llama-8B over hqa
+All Examples:  50
+best_subspan_em: 0.72
+precision_recall_f1_precision: 0.04746996846093459
+precision_recall_f1_recall: 0.6588333333333334
+precision_recall_f1_f1: 0.08512911841288708
+Run deepseek-ai/DeepSeek-R1-Distill-Llama-8B over tqa
+All Examples:  50
+best_subspan_em: 0.56
+precision_recall_f1_precision: 0.08366783191152875
+precision_recall_f1_recall: 0.30369665398360296
+precision_recall_f1_f1: 0.10410821465132958
+Run deepseek-ai/DeepSeek-R1-Distill-Llama-8B over nq
+All Examples:  50
+best_subspan_em: 0.52
+precision_recall_f1_precision: 0.04132462936497182
+precision_recall_f1_recall: 0.5531666666666667
+precision_recall_f1_f1: 0.07233829824197184
+Run deepseek-ai/DeepSeek-R1-Distill-Llama-8B over 2wiki
+All Examples:  50
+best_subspan_em: 0.82
+precision_recall_f1_precision: 0.06083609390541702
+precision_recall_f1_recall: 0.8
+precision_recall_f1_f1: 0.11035646300314016
+Run deepseek-ai/DeepSeek-R1-Distill-Llama-8B over hqa
+All Examples:  50
+best_subspan_em: 0.7
+precision_recall_f1_precision: 0.05386031350632828
+precision_recall_f1_recall: 0.6738333333333333
+precision_recall_f1_f1: 0.09561714310576847
+Run deepseek-ai/DeepSeek-R1-Distill-Llama-8B over tqa
+All Examples:  50
+best_subspan_em: 0.58
+precision_recall_f1_precision: 0.07721320214300051
+precision_recall_f1_recall: 0.3065608283083036
+precision_recall_f1_f1: 0.10175481642239477
+Run deepseek-ai/DeepSeek-R1-Distill-Llama-8B over nq
+All Examples:  50
+best_subspan_em: 0.54
+precision_recall_f1_precision: 0.040733301917832726
+precision_recall_f1_recall: 0.5656666666666667
+precision_recall_f1_f1: 0.07170193854667348
+Run meta-llama/Llama-3.1-8B-Instruct over 2wiki
+Run meta-llama/Llama-3.1-8B-Instruct over 2wiki
+All Examples:  50
+best_subspan_em: 0.84
+precision_recall_f1_precision: 0.060567318374274974
+precision_recall_f1_recall: 0.87
+precision_recall_f1_f1: 0.11116542803338317
+Run meta-llama/Llama-3.1-8B-Instruct over hqa
+All Examples:  50
+best_subspan_em: 0.88
+precision_recall_f1_precision: 0.05788685347648508
+precision_recall_f1_recall: 0.8483333333333334
+precision_recall_f1_f1: 0.10447612061542139
+Run meta-llama/Llama-3.1-8B-Instruct over tqa
+All Examples:  50
+best_subspan_em: 0.6
+precision_recall_f1_precision: 0.08654308223063623
+precision_recall_f1_recall: 0.31896837251957266
+precision_recall_f1_f1: 0.1131322919385878
+Run meta-llama/Llama-3.1-8B-Instruct over nq
+All Examples:  50
+best_subspan_em: 0.62
+precision_recall_f1_precision: 0.043688198543327554
+precision_recall_f1_recall: 0.662875
+precision_recall_f1_f1: 0.07760525335935882
+Run meta-llama/Llama-3.1-8B-Instruct over 2wiki
+All Examples:  50
+best_subspan_em: 0.84
+precision_recall_f1_precision: 0.060567318374274974
+precision_recall_f1_recall: 0.87
+precision_recall_f1_f1: 0.11116542803338317
+Run meta-llama/Llama-3.1-8B-Instruct over hqa
+All Examples:  50
+best_subspan_em: 0.88
+precision_recall_f1_precision: 0.05788685347648508
+precision_recall_f1_recall: 0.8483333333333334
+precision_recall_f1_f1: 0.10447612061542139
+Run meta-llama/Llama-3.1-8B-Instruct over tqa
+All Examples:  50
+best_subspan_em: 0.6
+precision_recall_f1_precision: 0.08654308223063623
+precision_recall_f1_recall: 0.31896837251957266
+precision_recall_f1_f1: 0.1131322919385878
+Run meta-llama/Llama-3.1-8B-Instruct over nq
+All Examples:  50
+best_subspan_em: 0.64
+precision_recall_f1_precision: 0.027761591719305114
+precision_recall_f1_recall: 0.699125
+precision_recall_f1_f1: 0.05234249214805642
+Run meta-llama/Llama-3.1-8B-Instruct over 2wiki
+All Examples:  50
+best_subspan_em: 0.9
+precision_recall_f1_precision: 0.03387039170087124
+precision_recall_f1_recall: 0.8726666666666667
+precision_recall_f1_f1: 0.06437190880849746
+Run meta-llama/Llama-3.1-8B-Instruct over hqa
+All Examples:  50
+best_subspan_em: 0.88
+precision_recall_f1_precision: 0.02665406570059489
+precision_recall_f1_recall: 0.8558333333333333
+precision_recall_f1_f1: 0.051280914430685096
+Run meta-llama/Llama-3.1-8B-Instruct over tqa
+All Examples:  50
+best_subspan_em: 0.6
+precision_recall_f1_precision: 0.04939248510550852
+precision_recall_f1_recall: 0.3647770395409197
+precision_recall_f1_f1: 0.08021129427811398
+Run meta-llama/Llama-3.1-8B-Instruct over nq
+All Examples:  50
+best_subspan_em: 0.64
+precision_recall_f1_precision: 0.027761591719305114
+precision_recall_f1_recall: 0.699125
+precision_recall_f1_f1: 0.05234249214805642
+Run meta-llama/Meta-Llama-3-8B-Instruct over 2wiki
+All Examples:  50
+best_subspan_em: 0.8
+precision_recall_f1_precision: 0.029741279994430166
+precision_recall_f1_recall: 0.7966666666666666
+precision_recall_f1_f1: 0.056702368111821014
+Run meta-llama/Meta-Llama-3-8B-Instruct over hqa
+All Examples:  50
+best_subspan_em: 0.9
+precision_recall_f1_precision: 0.026055116409591742
+precision_recall_f1_recall: 0.8758333333333334
+precision_recall_f1_f1: 0.05018579268984987
+Run meta-llama/Meta-Llama-3-8B-Instruct over tqa
+All Examples:  50
+best_subspan_em: 0.64
+precision_recall_f1_precision: 0.03977691561740487
+precision_recall_f1_recall: 0.344698625580001
+precision_recall_f1_f1: 0.06638467616005476
+Run meta-llama/Meta-Llama-3-8B-Instruct over nq
+All Examples:  50
+best_subspan_em: 0.7
+precision_recall_f1_precision: 0.03158068645525354
+precision_recall_f1_recall: 0.762
+precision_recall_f1_f1: 0.05782771369525615
+Run meta-llama/Llama-3.2-3B-Instruct over 2wiki
+All Examples:  50
+best_subspan_em: 0.7
+precision_recall_f1_precision: 0.045065754495293674
+precision_recall_f1_recall: 0.7026666666666667
+precision_recall_f1_f1: 0.08373067666066314
+Run meta-llama/Llama-3.2-3B-Instruct over hqa
+All Examples:  50
+best_subspan_em: 0.7
+precision_recall_f1_precision: 0.04356651026817767
+precision_recall_f1_recall: 0.7733333333333333
+precision_recall_f1_f1: 0.0786256927224858
+Run meta-llama/Llama-3.2-3B-Instruct over tqa
+All Examples:  50
+best_subspan_em: 0.6
+precision_recall_f1_precision: 0.07290921474245307
+precision_recall_f1_recall: 0.3318223259968099
+precision_recall_f1_f1: 0.1031298779705925
+Run meta-llama/Llama-3.2-3B-Instruct over nq
+All Examples:  50
+best_subspan_em: 0.64
+precision_recall_f1_precision: 0.028641249809614334
+precision_recall_f1_recall: 0.688875
+precision_recall_f1_f1: 0.0536301658336252
+All Examples:  50
+best_subspan_em: 0.86
+precision_recall_f1_precision: 0.05248091661668578
+precision_recall_f1_recall: 0.8333333333333334
+precision_recall_f1_f1: 0.09728956288857651
+All Examples:  50
+best_subspan_em: 0.86
+precision_recall_f1_precision: 0.058166491120343666
+precision_recall_f1_recall: 0.8666666666666667
+precision_recall_f1_f1: 0.10532587631058042
+All Examples:  50
+best_subspan_em: 0.6
+precision_recall_f1_precision: 0.04939248510550852
+precision_recall_f1_recall: 0.3647770395409197
+precision_recall_f1_f1: 0.08021129427811398
+All Examples:  50
+best_subspan_em: 0.64
+precision_recall_f1_precision: 0.027761591719305114
+precision_recall_f1_recall: 0.699125
+precision_recall_f1_f1: 0.05234249214805642
