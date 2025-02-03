@@ -291,16 +291,8 @@ def main():
         attn_implementation="flash_attention_2"
     )
     config: LlamaConfig = AutoConfig.from_pretrained(pretrained_model_name_or_path=args.model_name)
-    
-    # start from 3.1, we use the new rotary embedding for scaling
-    if args.model_name.startswith("meta-llama/Llama-3.1"):
-        emb: LlamaRotaryEmbedding = LlamaRotaryEmbedding(config).to(device=model.device, dtype=torch.float32)
-    else:
-        emb: LlamaRotaryEmbedding = LlamaRotaryEmbedding(
-            dim=config.hidden_size // config.num_attention_heads,
-            max_position_embeddings=config.max_position_embeddings,
-            base=config.rope_theta
-        ).to(device=model.device, dtype=torch.float32)
+    print("max position", config.max_position_embeddings)
+    emb: LlamaRotaryEmbedding = LlamaRotaryEmbedding(config=config).to(device=model.device, dtype=torch.float32)
     model.eval()
     emb.eval()
 
