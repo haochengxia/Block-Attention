@@ -192,3 +192,34 @@ best_subspan_em: 0.62
 precision_recall_f1_precision: 0.03339782602644011
 precision_recall_f1_recall: 0.6430416666666666
 precision_recall_f1_f1: 0.05903174279839479
+Run llama-3.2-finetuned over 2wiki
+Run llama-3.2-finetuned over hqa
+Run llama-3.2-finetuned over 2wiki
+Run llama-3.2-finetuned over hqa
+Run llama-3.2-finetuned over tqa
+Run llama-3.2-finetuned over 2wiki
+All Examples:  50
+best_subspan_em: 0.82
+precision_recall_f1_precision: 0.061097205283636685
+precision_recall_f1_recall: 0.826
+precision_recall_f1_f1: 0.11189775772314466
+Run llama-3.2-finetuned over hqa
+All Examples:  50
+best_subspan_em: 0.6
+precision_recall_f1_precision: 0.03184250950775885
+precision_recall_f1_recall: 0.6683333333333333
+precision_recall_f1_f1: 0.059571732257001554
+Run llama-3.2-finetuned over tqa
+All Examples:  50
+best_subspan_em: 0.6
+precision_recall_f1_precision: 0.04720361751792347
+precision_recall_f1_recall: 0.31422176764416554
+precision_recall_f1_f1: 0.07480574224457241
+Run llama-3.2-finetuned over nq
+All Examples:  50
+best_subspan_em: 0.56
+precision_recall_f1_precision: 0.02932387610248751
+precision_recall_f1_recall: 0.5757916666666667
+precision_recall_f1_f1: 0.05171479539252945
+Run llama-3.1-finetuned over 2wiki
+Run llama-3.1-finetuned over hqa

@@ -1,0 +1,24 @@
+Run llama-3.1-finetuned over 2wiki
+All Examples:  50
+best_subspan_em: 0.8
+precision_recall_f1_precision: 0.06077701109532511
+precision_recall_f1_recall: 0.82
+precision_recall_f1_f1: 0.11024657769568101
+Run llama-3.1-finetuned over hqa
+All Examples:  50
+best_subspan_em: 0.78
+precision_recall_f1_precision: 0.03516338377218837
+precision_recall_f1_recall: 0.8141666666666667
+precision_recall_f1_f1: 0.06646529549033477
+Run llama-3.1-finetuned over tqa
+All Examples:  50
+best_subspan_em: 0.6
+precision_recall_f1_precision: 0.04274784088025822
+precision_recall_f1_recall: 0.33352795305793526
+precision_recall_f1_f1: 0.06963031220077211
+Run llama-3.1-finetuned over nq
+All Examples:  50
+best_subspan_em: 0.68
+precision_recall_f1_precision: 0.027271525835886153
+precision_recall_f1_recall: 0.7077916666666667
+precision_recall_f1_f1: 0.051339911514227544
