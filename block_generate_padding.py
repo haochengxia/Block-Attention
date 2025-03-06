@@ -30,6 +30,8 @@ SFTDataInstance = TypedDict("SFTDataInstance", {
     "inputs": SFTDataInstanceInputs
 })
 
+PADDING_SIZE = 16
+
 
 def pkv_to_device(pkv: DynamicCache, device: Union[torch.device, str]) -> DynamicCache:
     for i in range(0, len(pkv.key_cache)):
@@ -156,8 +158,8 @@ def build_block_past_key_values(
             device=model.device
         )
         # padding
-        if block_input_ids.size(1) % 16 != 0:
-            padding_length  = 16 - (block_input_ids.size(1) % 16)
+        if block_input_ids.size(1) % PADDING_SIZE != 0:
+            padding_length  = PADDING_SIZE - (block_input_ids.size(1) % PADDING_SIZE)
             padding_tensor = torch.full(
             (1, padding_length), tokenizer.eos_token_id, dtype=torch.int64, device=model.device
         )
@@ -232,6 +234,7 @@ class Args:
     output_file: str
     interactive: bool = False
     num: int = 500
+    padding_size: int = 16
 
 
 def parse_args() -> Args:
@@ -241,10 +244,11 @@ def parse_args() -> Args:
     parser.add_argument("--output_file", type=str)
     parser.add_argument("--interactive", type=bool, default=False)
     parser.add_argument("--num", type=int, default=50)
+    parser.add_argument("--padding-size", type=int, default=16)
     args = parser.parse_args()
     return Args(model_name=args.model_name, input_file=args.input_file, 
                 output_file=args.output_file, interactive=args.interactive,
-                num=args.num)
+                num=args.num, padding_size=args.padding_size)
 
 
 def write_jsonline(fp: str, obj: List[Any]):
@@ -256,6 +260,9 @@ def write_jsonline(fp: str, obj: List[Any]):
 def main():
     args = parse_args()
     set_seed(seed=42)
+
+    global PADDING_SIZE
+    PADDING_SIZE = args.padding_size
 
     with open(args.input_file, "r", encoding='utf-8') as f:
         dataset: List[SFTDataInstance] = [json.loads(i) for i in f ]
