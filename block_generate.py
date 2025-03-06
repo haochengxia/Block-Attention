@@ -174,11 +174,34 @@ def build_block_past_key_values(
     return caches, input_ids
 
 
+def visualize_attention_map(attention_scores: torch.Tensor, input_tokens: List[str], output_path: str):
+    """
+    可视化 attention map
+    
+    Args:
+        attention_scores: shape [num_heads, tgt_len, src_len] 的 attention 分数
+        input_tokens: 输入的 token 列表
+        output_path: 保存图片的路径
+    """
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+    
+    # 取平均值得到 [tgt_len, src_len] 的 attention map
+    avg_attention = attention_scores.mean(dim=0).cpu().numpy()
+    
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(avg_attention, xticklabels=input_tokens, yticklabels=input_tokens)
+    plt.xlabel('Source Tokens')
+    plt.ylabel('Target Tokens') 
+    plt.savefig(output_path)
+    plt.close()
+
+
 @torch.no_grad()
 def block_generate(
         prompt: str, generation_config: GenerationConfig, model: LlamaForCausalLM, emb: LlamaRotaryEmbedding,
-        tokenizer: PreTrainedTokenizer
-) -> str:
+        tokenizer: PreTrainedTokenizer, output_attentions: bool = False
+) -> Union[str, Tuple[str, List[torch.Tensor]]]:
     past_key_values, input_ids = build_block_past_key_values(
         prompt=prompt, tokenizer=tokenizer, model=model, emb=emb
     )
@@ -209,12 +232,23 @@ def block_generate(
                                                             ])
 
     outputs = model.generate(
-        input_ids=input_ids, generation_config=generation_config, past_key_values=past_key_values,
-        use_cache=True, eos_token_id=[tokenizer.eos_token_id], tokenizer=tokenizer,
-        attention_mask=torch.ones_like(input_ids).to(device=model.device), pad_token_id=tokenizer.eos_token_id,
+        input_ids=input_ids, 
+        generation_config=generation_config,
+        past_key_values=past_key_values,
+        use_cache=True,
+        eos_token_id=[tokenizer.eos_token_id],
+        tokenizer=tokenizer,
+        attention_mask=torch.ones_like(input_ids).to(device=model.device),
+        pad_token_id=tokenizer.eos_token_id,
+        output_attentions=output_attentions,
         # logits_processor=[custom_mask_processor]
     )
-    return tokenizer.decode(token_ids=outputs[0][input_length:].tolist())
+    
+    generated_text = tokenizer.decode(token_ids=outputs[0][input_length:].tolist())
+    
+    if output_attentions:
+        return generated_text, outputs.attentions
+    return generated_text
 
 
 @dataclass
@@ -297,8 +331,13 @@ def main():
             break
         # TODO(haocheng): reformate the prompt
         # i["prompt"]  = i["prompt"].replace('( ', ' (')
-        generated = block_generate(
-            prompt=i["prompt"], generation_config=generation_config, model=model, emb=emb, tokenizer=tokenizer
+        generated, attentions = block_generate(
+            prompt=i["prompt"], 
+            generation_config=generation_config,
+            model=model,
+            emb=emb,
+            tokenizer=tokenizer,
+            output_attentions=True
         )
         i["generated"] = generated
         print(i["generated"])
@@ -310,6 +349,17 @@ def main():
             input()
         res.append(i)
         count += 1
+        
+        # 可视化最后一层的 attention map
+        if count < 5:  # 只为前5个样本生成可视化
+            tokens = tokenizer.convert_ids_to_tokens(
+                tokenizer.encode(i["prompt"] + generated)
+            )
+            visualize_attention_map(
+                attentions[-1][-1],  # 最后一层最后一个 token 的 attention
+                tokens,
+                f"attention_map_{count}.png"
+            )
     
     write_jsonline(args.output_file, res)
 
